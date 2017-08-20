@@ -51,11 +51,19 @@ pause >nul
 echo.
 adb devices
 GoTo choice2
-:revent
+:revert
+echo Ensure that you have USB debugging enabled before continuing
+echo.
+<nul set /p "=To begin, press any key to check for ADB Devices..."
+pause >nul
+echo.
+adb devices
+GoTo choice3
 
 :choice2
-echo Find your chosen application in the Google Play Store
+echo This will an application to enter "Immersive Mode".
 echo.
+echo Find your chosen application in the Google Play Store
 echo Examine the Website URL and find the string of text that 
 echo starts with "com." or something similar and enter it here: 
 set /p app=""
@@ -67,8 +75,29 @@ Goto End
 :No
 GoTo choice2
 :Yes
-Echo Running script...
+adb shell settings put global policy_control immersive.full=%app%
 echo.
+<nul set /p "=Press any key to return to the main menu ..."
+pause >nul
+GoTo start
+
+:choice3
+echo This will revert a forced-immersive application back 
+echo to normality.
+echo.
+echo Find your chosen application in the Google Play Store
+echo Examine the Website URL and find the string of text that 
+echo starts with "com." or something similar and enter it here: 
+set /p app=""
+echo. 
+Choice /M "You entered: %app% - Is this correct? "
+If Errorlevel 2 Goto No
+If Errorlevel 1 Goto Yes
+Goto End
+:No
+GoTo choice2
+:Yes
+adb shell settings put global policy_control immersive.off=%app%
 echo.
 <nul set /p "=Press any key to return to the main menu ..."
 pause >nul
