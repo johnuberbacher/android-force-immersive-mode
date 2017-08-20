@@ -18,4 +18,4 @@ Immersive mode hides the Status Bar and Navigation Bar and will show them when s
 * To enable USB Debugging, you’ll need to jump into the Developer options menu, scroll down to the Debugging section, and toggle the “USB Debugging” slider. (USB Debugging should be toggled back off when you are finished with the script)
 
 ## To-Do
-* Add in condition to reverse forcing-immersive mode (set back to normal)
+- [x] Add in condition to reverse forcing-immersive mode (set back to normal)
